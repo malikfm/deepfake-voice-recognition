@@ -4,8 +4,6 @@ import tempfile
 import librosa
 import joblib
 import numpy as np
-import sounddevice as sd
-import soundfile as sf
 import streamlit as st
 from sklearn import preprocessing
 from tensorflow.keras.models import load_model
