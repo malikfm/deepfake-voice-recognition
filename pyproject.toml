@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "deepfake-voice-recognition"
+version = "0.1.0"
+description = ""
+authors = ["malikfm <mubarok.malikfajar@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+librosa = "^0.10.2"
+joblib = "^1.4.2"
+sounddevice = "^0.5.1"
+soundfile = "^0.12.1"
+streamlit = "^1.41.1"
+tensorflow = "^2.17.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
