@@ -1,17 +1,18 @@
+import os
+import tempfile
+
 import librosa
 import joblib
 import numpy as np
-import os
 import sounddevice as sd
 import soundfile as sf
 import streamlit as st
-import tempfile
 from sklearn import preprocessing
 from tensorflow.keras.models import load_model
 
 # Load models
-rf_model = joblib.load("./rf_model.joblib")
-lstm_model = load_model("./lstm_model.keras")
+rf_model = joblib.load("./models/rf_model.joblib")
+lstm_model = load_model("./models/lstm_model.keras")
 
 
 # Function to extract features from audio
@@ -46,15 +47,15 @@ def extract_features(audio_path):
 
 # Function to predict using the selected model
 def predict(model, audio_path):
-    if model == "Random Forest":
+    if model == "Model 1 (RF)":
         features = extract_features(audio_path)
         print("Random Forest features shape:", features.shape)  # Should be (26,)
 
         return rf_model.predict([features])[0]
-    elif model == "LSTM":
+    elif model == "Model 2 (LSTM)":
         features = extract_features(audio_path)
 
-        scaler = joblib.load("lstm_scaler.joblib")
+        scaler = joblib.load("./models/lstm_scaler.joblib")
         features = scaler.transform(features.reshape(1, -1))
 
         # features = np.expand_dims(features, axis=(0, 1))  # Shape: (1, time_steps, 26)
@@ -67,7 +68,7 @@ def predict(model, audio_path):
 # Streamlit UI
 st.title("Deepfake Voice Recognition")
 
-model_choice = st.selectbox("Choose Model", ("Random Forest", "LSTM"))
+model_choice = st.selectbox("Choose Model", ("Model 1 (RF)", "Model 2 (LSTM)"))
 
 uploaded_file = st.file_uploader("Upload an audio file", type=["wav", "mp3"])
 
